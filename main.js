@@ -16,6 +16,7 @@ $(function () {
   const KOSAR = $(".kosar2003");
   const KEZD = $(".kezd2003");
   const ADMIN = $(".admin2003");
+  const DELETE = $(".delete");
   FOOTER.html(kosar);
   navfeltoltes();
 
@@ -28,11 +29,6 @@ $(function () {
 
   //valamiért nem megy a delete console azt a hibát írja ki hogy not determined
 
-  function deletekoslist(event) {
-    let id = event.target.id;
-    KOSARLISTA.splice(id, 1);
-    console.log(KOSARLISTA);
-  }
   //valamiért nem megy a delete console azt a hibát írja ki hogy not determined
   function deleteterlist(event) {
     let id = event.target.id;
@@ -40,14 +36,14 @@ $(function () {
     console.log(TERMEKLISTA);
   }
 
-  $(".linkek2").on("click", KOSAR, function () {
+  function kosarfelulet() {
     let kosar1 = "";
     for (let i = 0; i < KOSARLISTA.length; i++) {
       //Kosár losta kiiratása
-      kosar1 += `<div class="card col-lg-3 col-md-4 col-sm-6">`;
+      kosar1 += `<div class="deletediv card col-lg-3 col-md-4 col-sm-6">`;
       kosar1 += `<h2 class="card-header">${
         TERMEKLISTA[KOSARLISTA[i]].termek
-      }<button class="jobboldal" id="${i}" onclick="deletekoslist(event)">X</button></h2>`;
+      }<button class="delete" id="${i}" >X</button></h2>`;
       kosar1 += `<img src="${
         TERMEKLISTA[KOSARLISTA[i]].kep
       }" class="kiskep" alt="termék"><br>`;
@@ -61,10 +57,25 @@ $(function () {
           </div>`;
       kosar1 += `</div>`;
     }
+    return kosar1;
+  }
+
+  function kosarkattintas() {
     FOCIM.html(`<h1>Kosár felület<h1>`);
-    ARTICLE.html(kosar1);
+    ARTICLE.html(kosarfelulet());
+    $(".deletediv").on("click", DELETE, function () {
+      let id = event.target.id;
+      console.log(id);
+      KOSARLISTA.splice(id, 1);
+      kosarkattintas();
+    });
     FOOTER.html(arosszead);
+  }
+
+  $(".linkek2").on("click", KOSAR, function () {
+    kosarkattintas();
   });
+
   //admin felületre váltás
   $(".linkek3").on("click", ADMIN, function () {
     FOCIM.html(`<h1>Admin felület<h1>`);
