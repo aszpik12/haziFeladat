@@ -194,6 +194,9 @@ function divek() {
 
 function adminfelulet() {
   let txt = `<table class="table table-striped">`;
+  txt += `<tr>
+  <td>Termék</td><td>Ár</td><td>Darab</td><td>Kép</td><td>Leírás</td>
+  </tr>`;
   for (let i = 0; i < TERMEKLISTA.length; i++) {
     txt += `<tr>
             <td>${TERMEKLISTA[i].termek}</td><td>${TERMEKLISTA[i].ar}</td><td>${TERMEKLISTA[i].darab}</td><td><img src="${TERMEKLISTA[i].kep}" class="adminkep"></td><td>${TERMEKLISTA[i].leiras}</td><td><button class="jobboldal" id="${i}" onclick="deleteterlist(event)">X</button></td>
